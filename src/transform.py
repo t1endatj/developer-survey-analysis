@@ -48,7 +48,7 @@ def create_experience_bins(df: pd.DataFrame, col: str = 'YearsCodePro') -> pd.Da
 
 
 
-# PHẦN 2: HÀM XỬ LÝ CỘT MULTI-SELECT
+# HÀM XỬ LÝ CỘT MULTI-SELECT
 def explode_multi_select(df: pd.DataFrame, col: str, sep: str = ';') -> pd.DataFrame:
     """
     Xử lý cột multi-select: tách các giá trị và mở rộng thành nhiều dòng.
@@ -84,7 +84,7 @@ def explode_multi_select(df: pd.DataFrame, col: str, sep: str = ';') -> pd.DataF
 
 
 
-# PHẦN 3: HÀM CHUẨN HOÁ GIÁ TRỊ REMOTEWORK
+#  HÀM CHUẨN HOÁ GIÁ TRỊ REMOTEWORK
 def standardize_remote_work(df: pd.DataFrame) -> pd.DataFrame:
     """
     Chuẩn hoá nhãn cột RemoteWork cho ngắn gọn và dễ hiển thị.
