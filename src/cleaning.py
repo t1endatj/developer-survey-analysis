@@ -9,7 +9,7 @@ df = pd.read_csv(file_path)
 # lọc các cột cần thiết
 selected_columns = [
     'MainBranch', 'Age', 'YearsCodePro', 'DevType', 
-    'LanguageHaveWorkedWith', 'CompTotal', 'RemoteWork', 'AISelect'
+    'LanguageHaveWorkedWith', 'CompTotal', 'RemoteWork', 'AISelect','Frustration'
 ]
 df = df[selected_columns].copy()
 

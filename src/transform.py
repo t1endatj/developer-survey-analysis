@@ -186,14 +186,8 @@ def run_transform(input_path: str, output_path: str) -> pd.DataFrame:
     df = standardize_ai_select(df)
     
     # Lưu kết quả
-    print(f"\n>> Lưu kết quả vào: {output_path}")
     df.to_csv(output_path, index=False)
-    print(f"   Số dòng sau transform: {len(df):,}")
-    
-    print("\n" + "=" * 50)
-    print("TRANSFORM: Hoàn tất!")
-    print("=" * 50)
-    
+
     return df
 
 
