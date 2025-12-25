@@ -291,6 +291,54 @@ def analyze_top_frustrations(df: pd.DataFrame, top_n: int = 10) -> pd.DataFrame:
 
 
 
+# HÀM 9: TOP DEVTYPE
+
+def analyze_top_devtypes(df: pd.DataFrame, top_n: int = 15) -> pd.DataFrame:
+    """
+    Thống kê top các loại developer (DevType) phổ biến nhất.
+    
+    Cột DevType là multi-select, mỗi người có thể chọn nhiều role
+    phân cách bằng dấu ';'.
+    
+    Tham số:
+        df: DataFrame chứa cột 'DevType'
+        top_n: Số lượng DevType top (mặc định 15)
+    
+    Trả về:
+        DataFrame với số lượng và tỉ lệ % developer thuộc mỗi DevType
+    """
+    # Kiểm tra cột DevType tồn tại
+    if 'DevType' not in df.columns:
+        print("Warning: Cột 'DevType' không tồn tại trong dữ liệu")
+        return pd.DataFrame()
+    
+    # Explode cột DevType
+    df_exploded = df.copy()
+    df_exploded['DevType'] = df_exploded['DevType'].str.split(';')
+    df_exploded = df_exploded.explode('DevType')
+    df_exploded['DevType'] = df_exploded['DevType'].str.strip()
+    
+    # Loại bỏ giá trị rỗng
+    df_exploded = df_exploded[df_exploded['DevType'].notna() & (df_exploded['DevType'] != '')]
+    
+    # Đếm số lượng
+    devtype_counts = df_exploded['DevType'].value_counts().head(top_n)
+    
+    # Tính tỉ lệ % (so với tổng số developer)
+    total_developers = len(df)
+    devtype_pct = (devtype_counts / total_developers * 100).round(2)
+    
+    # Tạo bảng kết quả
+    result = pd.DataFrame({
+        'DevType': devtype_counts.index,
+        'Count': devtype_counts.values,
+        'Percentage': devtype_pct.values
+    })
+    
+    return result
+
+
+
 # HÀM CHÍNH: CHẠY TOÀN BỘ PHÂN TÍCH
 def run_analysis(input_path: str) -> dict:
     """
@@ -340,6 +388,11 @@ def run_analysis(input_path: str) -> dict:
     results['top_frustrations'] = analyze_top_frustrations(df, top_n=10)
     if not results['top_frustrations'].empty:
         results['top_frustrations'].to_csv(f'{OUTPUT_DIR}/top_frustrations.csv', index=False)
+    
+    # 9. Top DevTypes
+    results['top_devtypes'] = analyze_top_devtypes(df, top_n=15)
+    if not results['top_devtypes'].empty:
+        results['top_devtypes'].to_csv(f'{OUTPUT_DIR}/top_devtypes.csv', index=False)
     
     return results
 

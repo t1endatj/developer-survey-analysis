@@ -161,28 +161,17 @@ def run_transform(input_path: str, output_path: str) -> pd.DataFrame:
     Trả về:
         DataFrame đã được transform
     """
-    print("=" * 50)
-    print("TRANSFORM: Bắt đầu biến đổi dữ liệu...")
-    print("=" * 50)
     
     # Bước 1: Đọc dữ liệu
-    print(f"\n[1/4] Đọc dữ liệu từ: {input_path}")
     df = pd.read_csv(input_path)
-    print(f"      Số dòng ban đầu: {len(df):,}")
     
     # Bước 2: Tạo nhóm kinh nghiệm
-    print("\n[2/4] Tạo nhóm kinh nghiệm (ExperienceLevel)...")
     df = create_experience_bins(df)
-    print(f"      Phân bổ nhóm kinh nghiệm:")
-    for level, count in df['ExperienceLevel'].value_counts().items():
-        print(f"        - {level}: {count:,}")
     
     # Bước 3: Chuẩn hoá RemoteWork
-    print("\n[3/4] Chuẩn hoá cột RemoteWork...")
     df = standardize_remote_work(df)
     
     # Bước 4: Chuẩn hoá AISelect
-    print("\n[4/4] Chuẩn hoá cột AISelect...")
     df = standardize_ai_select(df)
     
     # Lưu kết quả
