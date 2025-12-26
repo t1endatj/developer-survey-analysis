@@ -49,7 +49,6 @@ def get_role_display_name(devtype: str) -> str:
         "Engineering manager": "Engineering Manager",
         "DevOps specialist": "DevOps Specialist",
         "Data scientist or machine learning specialist": "Data Scientist / ML Engineer",
-        "Other (please specify):": "Other"
     }
     
     return rename_map.get(devtype, devtype)
@@ -89,13 +88,13 @@ def generate_roadmap(devtype: str) -> dict:
     # 2. Lấy remote work stats cho DevType này
     roadmap["remote_stats"] = _get_remote_stats_for_role(devtype)
     
-    # 3. Lấy thông tin AI usage (tổng quan)
+    # 3. Lấy thông tin AI usage 
     roadmap["ai_usage"] = _get_ai_usage_info()
     
-    # 4. Lấy top frustrations (tổng quan)
+    # 4. Lấy top frustrations
     roadmap["frustrations"] = _get_top_frustrations()
     
-    # 5. Lấy thông tin salary (tổng quan theo experience)
+    # 5. Lấy thông tin salary
     roadmap["salary_info"] = _get_salary_info()
     
     return roadmap
@@ -240,29 +239,3 @@ def _get_salary_info() -> list:
     
     return salary_info
 
-
-# Test function
-if __name__ == "__main__":
-    print("Available roles:")
-    roles = get_available_roles()
-    for role in roles:
-        print(f"  - {role}")
-    
-    print("\n" + "="*50)
-    
-    if roles:
-        test_role = roles[0]
-        print(f"\nRoadmap for: {test_role}")
-        roadmap = generate_roadmap(test_role)
-        
-        print(f"\nRole: {roadmap['role']}")
-        print(f"\nTop Languages:")
-        for lang in roadmap["languages"]:
-            print(f"  {lang['rank']}. {lang['name']} ({lang['percentage']}%)")
-        
-        print(f"\nRemote Stats: {roadmap['remote_stats']}")
-        print(f"\nAI Usage: {roadmap['ai_usage']}")
-        
-        print(f"\nTop Frustrations:")
-        for frust in roadmap["frustrations"]:
-            print(f"  - {frust['name']} ({frust['percentage']}%)")
