@@ -339,6 +339,74 @@ def analyze_top_devtypes(df: pd.DataFrame, top_n: int = 15) -> pd.DataFrame:
 
 
 
+# HÀM 10: TOP LANGUAGES THEO DEVTYPE
+def analyze_languages_by_devtype(df: pd.DataFrame, top_n_devtypes: int = 10, top_n_languages: int = 5) -> pd.DataFrame:
+    """
+    Phân tích top ngôn ngữ lập trình phổ biến cho từng loại Developer.
+    
+    Tham số:
+        df: DataFrame chứa cột 'DevType' và 'LanguageHaveWorkedWith'
+        top_n_devtypes: Số lượng DevType phổ biến nhất để phân tích (mặc định 10)
+        top_n_languages: Số lượng ngôn ngữ top cho mỗi DevType (mặc định 5)
+    
+    Trả về:
+        DataFrame với các cột: DevType, Language, Count, Percentage, Rank
+    """
+    # Kiểm tra cột tồn tại
+    if 'DevType' not in df.columns or 'LanguageHaveWorkedWith' not in df.columns:
+        print("Warning: Thiếu cột 'DevType' hoặc 'LanguageHaveWorkedWith'")
+        return pd.DataFrame()
+    
+    # Bước 1: Explode cả DevType và Language
+    df_work = df[['DevType', 'LanguageHaveWorkedWith']].copy()
+    df_work = df_work.dropna()
+    
+    # Explode DevType
+    df_work['DevType'] = df_work['DevType'].str.split(';')
+    df_work = df_work.explode('DevType')
+    df_work['DevType'] = df_work['DevType'].str.strip()
+    
+    # Explode Language
+    df_work['LanguageHaveWorkedWith'] = df_work['LanguageHaveWorkedWith'].str.split(';')
+    df_work = df_work.explode('LanguageHaveWorkedWith')
+    df_work['LanguageHaveWorkedWith'] = df_work['LanguageHaveWorkedWith'].str.strip()
+    
+    # Loại bỏ giá trị rỗng
+    df_work = df_work[
+        (df_work['DevType'].notna()) & (df_work['DevType'] != '') &
+        (df_work['LanguageHaveWorkedWith'].notna()) & (df_work['LanguageHaveWorkedWith'] != '')
+    ]
+    
+    # Bước 2: Lấy top N DevType phổ biến nhất
+    top_devtypes = df_work['DevType'].value_counts().head(top_n_devtypes).index.tolist()
+    df_work = df_work[df_work['DevType'].isin(top_devtypes)]
+    
+    # Bước 3: Với mỗi DevType, đếm số lần xuất hiện của mỗi Language
+    results = []
+    
+    for devtype in top_devtypes:
+        df_devtype = df_work[df_work['DevType'] == devtype]
+        total_in_devtype = len(df_devtype)
+        
+        # Đếm languages trong DevType này
+        lang_counts = df_devtype['LanguageHaveWorkedWith'].value_counts().head(top_n_languages)
+        
+        for rank, (lang, count) in enumerate(lang_counts.items(), 1):
+            percentage = round(count / total_in_devtype * 100, 2)
+            results.append({
+                'DevType': devtype,
+                'Language': lang,
+                'Count': count,
+                'Percentage': percentage,
+                'Rank': rank
+            })
+    
+    result_df = pd.DataFrame(results)
+    
+    return result_df
+
+
+
 # HÀM CHÍNH: CHẠY TOÀN BỘ PHÂN TÍCH
 def run_analysis(input_path: str) -> dict:
     """
@@ -393,6 +461,11 @@ def run_analysis(input_path: str) -> dict:
     results['top_devtypes'] = analyze_top_devtypes(df, top_n=15)
     if not results['top_devtypes'].empty:
         results['top_devtypes'].to_csv(f'{OUTPUT_DIR}/top_devtypes.csv', index=False)
+    
+    # 10. Languages by DevType (cho Roadmap)
+    results['languages_by_devtype'] = analyze_languages_by_devtype(df, top_n_devtypes=10, top_n_languages=5)
+    if not results['languages_by_devtype'].empty:
+        results['languages_by_devtype'].to_csv(f'{OUTPUT_DIR}/languages_by_devtype.csv', index=False)
     
     return results
 
