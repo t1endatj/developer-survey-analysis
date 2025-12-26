@@ -1,12 +1,12 @@
 """
 visualize.py - Trực quan hoá dữ liệu (Matplotlib)
 
-MỤC ĐÍCH FILE NÀY
+MỤC ĐÍCH
 - Đọc các file CSV đã được xử lý/chuẩn hoá (nằm trong thư mục data/)
 - Vẽ các biểu đồ theo yêu cầu đề tài (remote work, AI usage, top languages, frustrations, compensation...)
 - Xuất ảnh biểu đồ ra thư mục reports/figures/
 
-CÁCH HOẠT ĐỘNG (TỔNG QUAN)
+CÁCH HOẠT ĐỘNG
 1) Xác định đường dẫn gốc dự án (BASE_DIR)
 2) Từ BASE_DIR suy ra:
    - DATA_DIR  : nơi chứa CSV đầu vào (data/)
@@ -16,10 +16,6 @@ CÁCH HOẠT ĐỘNG (TỔNG QUAN)
    - Tiền xử lý nhẹ (sort, rename label, reorder nhóm...)
    - Vẽ matplotlib
    - Lưu ảnh vào FIG_DIR
-
-LƯU Ý QUAN TRỌNG
-- File này chỉ “vẽ”. Dữ liệu nên được làm sạch/chuẩn hoá từ các bước trước (cleaning/transform/process).
-- Nếu muốn đổi cấu trúc thư mục (ví dụ chuyển data/ đi nơi khác) thì cần cập nhật DATA_DIR/FIG_DIR.
 """
 
 import os
@@ -28,13 +24,6 @@ import matplotlib.pyplot as plt
 
 
 # 1) THIẾT LẬP ĐƯỜNG DẪN
-# __file__ là đường dẫn của chính file visualize.py
-# dirname 2 lần để lấy thư mục gốc dự án:
-#   project_root/
-#     data/
-#     reports/
-#     src/
-#       visualize.py   <-- __file__
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Thư mục chứa dữ liệu CSV đầu vào
@@ -370,7 +359,7 @@ def plot_remote_by_devtype():
 
 def plot_top_frustrations():
     """
-    Vẽ top khó khăn (frustrations) mà developer gặp phải.
+    Vẽ top khó khăn mà developer gặp phải.
 
     Input : data/top_frustrations.csv
             columns: Frustration, Count, Percentage
