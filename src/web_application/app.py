@@ -85,7 +85,7 @@ st.markdown("""
 def main():
     # Header
     st.markdown('<h1 class="main-header">🚀 Developer Roadmap Generator</h1>', unsafe_allow_html=True)
-    st.markdown("**Đề xuất lộ trình học tập cho Developer dựa trên Stack Overflow Survey 2024**")
+    st.markdown("**Đề xuất lộ trình keyword cho Developer dựa trên khảo sát Stack Overflow Survey 2024**")
     
     st.divider()
     
