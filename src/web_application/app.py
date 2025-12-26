@@ -155,10 +155,15 @@ def main():
     with col1:
         st.subheader("🤖 Mức độ sử dụng AI")
         if roadmap["ai_usage"]:
-            for usage_type, percentage in roadmap["ai_usage"].items():
-                icon = "✅" if "Using" in usage_type else ("⏳" if "Planning" in usage_type else "❌")
-                st.markdown(f"{icon} **{usage_type}**: {percentage}%")
-                st.progress(percentage / 100)
+            # Gộp thành 2 nhóm: Có dùng vs Không dùng
+            using = roadmap["ai_usage"].get("Using AI", 0)
+            not_using = roadmap["ai_usage"].get("Not Using", 0) + roadmap["ai_usage"].get("Planning", 0)
+            
+            col_a, col_b = st.columns(2)
+            with col_a:
+                st.metric(label="✅ Có dùng AI", value=f"{using}%")
+            with col_b:
+                st.metric(label="❌ Không dùng", value=f"{not_using:.1f}%")
         else:
             st.info("Không có dữ liệu AI usage")
     
