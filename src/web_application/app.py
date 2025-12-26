@@ -96,7 +96,7 @@ def main():
         st.error("❌ Không tìm thấy dữ liệu. Vui lòng chạy analysis trước!")
         return
     
-    # Tạo mapping để hiển thị teen
+    # Tạo mapping để hiển thị tên
     role_options = {get_role_display_name(role): role for role in roles}
     
     # Dropdown chọn role

@@ -2,7 +2,6 @@
 roadmap.py - Logic tạo Roadmap đề xuất cho Developer
 
 Module này đọc các file CSV đã phân tích và tổng hợp thành
-Roadmap đề xuất cho từng loại Developer (DevType).
 """
 
 import os
