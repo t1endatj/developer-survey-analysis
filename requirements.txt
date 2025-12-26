@@ -1,0 +1,14 @@
+# Developer Survey Analysis - Dependencies
+# Python 3.12.9
+
+# Xử lí dữ liệu
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Trực quan hoá dữ liệu 
+matplotlib>=3.7.0
+
+# Web application dùng để đề xuất các ngôn ngữ liên quan ngành.
+streamlit>=1.28.0
+
+# Khi chạy phải cd đúng vào thư mục web_application và sử dụng lệnh 'streamlit run app.py'
