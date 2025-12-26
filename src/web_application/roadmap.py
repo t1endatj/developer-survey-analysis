@@ -142,7 +142,6 @@ def _get_remote_stats_for_role(devtype: str) -> dict:
     df.index = df.index.str.strip()
     
     if devtype not in df.index:
-        # Thử tìm với tên ngắn
         return {}
     
     row = df.loc[devtype]
