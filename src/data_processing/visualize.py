@@ -24,10 +24,10 @@ import matplotlib.pyplot as plt
 
 
 # 1) THIẾT LẬP ĐƯỜNG DẪN
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
-# Thư mục chứa dữ liệu CSV đầu vào
-DATA_DIR = os.path.join(BASE_DIR, "data")
+# Thư mục chứa dữ liệu CSV đầu vào (kết quả từ analysis)
+DATA_DIR = os.path.join(BASE_DIR, "reports", "tables")
 
 # Thư mục chứa ảnh đầu ra
 FIG_DIR = os.path.join(BASE_DIR, "reports", "figures")
