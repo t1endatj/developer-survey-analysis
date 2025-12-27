@@ -28,60 +28,6 @@ st.set_page_config(
 )
 
 
-# CSS 
-st.markdown("""
-<style>
-    .main-header {
-        font-size: 2.5rem;
-        font-weight: bold;
-        text-align: center;
-        padding: 1rem;
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 2rem;
-    }
-    
-    .stat-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 1.5rem;
-        border-radius: 10px;
-        color: white;
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    
-    .stat-value {
-        font-size: 2rem;
-        font-weight: bold;
-    }
-    
-    .stat-label {
-        font-size: 0.9rem;
-        opacity: 0.9;
-    }
-    
-    .language-bar {
-        background: #e0e0e0;
-        border-radius: 10px;
-        height: 25px;
-        margin: 5px 0;
-    }
-    
-    .language-fill {
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-        border-radius: 10px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        padding-left: 10px;
-        color: white;
-        font-weight: bold;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-
 def main():
     # Header
     st.markdown('<h1 class="main-header">🚀 Developer Roadmap Generator</h1>', unsafe_allow_html=True)

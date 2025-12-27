@@ -10,7 +10,6 @@
 
 
 import pandas as pd
-import numpy as np
 import os
 
 
@@ -304,7 +303,7 @@ def analyze_ai_by_experience(df: pd.DataFrame) -> pd.DataFrame:
 
 
 
-# HÀM 8: TOP FRUSTRATIONS (THÁCH THỨC/KHÓ KHĂN)
+# HÀM 9: TOP FRUSTRATIONS (THÁCH THỨC/KHÓ KHĂN)
 
 def analyze_top_frustrations(df: pd.DataFrame, top_n: int = 10) -> pd.DataFrame:
     """
@@ -480,7 +479,6 @@ def run_analysis(input_path: str) -> dict:
         Dictionary chứa tất cả các bảng kết quả
     """
 
-    
     # Đọc dữ liệu
     df = pd.read_csv(input_path)
     results = {}
