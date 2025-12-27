@@ -1,0 +1,59 @@
+DevType,ExperienceLevel,Count,Mean,Median
+Backend,Fresher (<1),293,109385.9,50000.0
+Backend,Junior (1-2),325,99819.54,57000.0
+Backend,Lead/Staff (11-20),1377,143047.67,110000.0
+Backend,Mid-level (3-5),1020,106116.89,70000.0
+Backend,Principal+ (21+),672,149144.25,135000.0
+Backend,Senior (6-10),1522,130353.69,95000.0
+Data Engineer,Fresher (<1),23,111060.96,45600.0
+Data Engineer,Junior (1-2),44,119329.55,69000.0
+Data Engineer,Lead/Staff (11-20),134,145787.62,134500.0
+Data Engineer,Mid-level (3-5),137,82604.14,70000.0
+Data Engineer,Principal+ (21+),72,157830.83,150000.0
+Data Engineer,Senior (6-10),186,112346.38,94000.0
+Desktop/Enterprise,Fresher (<1),85,81844.25,39000.0
+Desktop/Enterprise,Junior (1-2),106,92702.11,64000.0
+Desktop/Enterprise,Lead/Staff (11-20),308,127408.01,100000.0
+Desktop/Enterprise,Mid-level (3-5),198,96943.65,65000.0
+Desktop/Enterprise,Principal+ (21+),282,124528.16,110000.0
+Desktop/Enterprise,Senior (6-10),262,109267.2,80000.0
+DevOps,Fresher (<1),28,74129.43,56000.0
+DevOps,Junior (1-2),26,80019.23,48500.0
+DevOps,Lead/Staff (11-20),122,142363.17,120000.0
+DevOps,Mid-level (3-5),93,93450.51,78000.0
+DevOps,Principal+ (21+),50,143665.1,155000.0
+DevOps,Senior (6-10),134,123089.59,95000.0
+Embedded,Fresher (<1),78,84900.97,51000.0
+Embedded,Junior (1-2),74,80694.08,60500.0
+Embedded,Lead/Staff (11-20),171,139814.4,110000.0
+Embedded,Mid-level (3-5),222,90568.82,65000.0
+Embedded,Principal+ (21+),151,133301.19,117000.0
+Embedded,Senior (6-10),214,117465.39,90000.0
+Engineering Manager,Lead/Staff (11-20),255,153410.72,126420.0
+Engineering Manager,Mid-level (3-5),29,115326.41,120000.0
+Engineering Manager,Principal+ (21+),133,171804.77,160000.0
+Engineering Manager,Senior (6-10),163,151440.58,127308.0
+Frontend,Fresher (<1),124,87930.2,32500.0
+Frontend,Junior (1-2),145,102974.41,50000.0
+Frontend,Lead/Staff (11-20),294,134957.06,100000.0
+Frontend,Mid-level (3-5),389,92745.81,55000.0
+Frontend,Principal+ (21+),93,130335.48,100000.0
+Frontend,Senior (6-10),503,107246.56,76500.0
+Full-stack,Fresher (<1),642,97141.57,48860.0
+Full-stack,Junior (1-2),722,98543.77,54000.0
+Full-stack,Lead/Staff (11-20),2459,123177.87,100000.0
+Full-stack,Mid-level (3-5),2073,96247.86,65000.0
+Full-stack,Principal+ (21+),1290,129313.52,120000.0
+Full-stack,Senior (6-10),2572,109943.65,87000.0
+Mobile,Fresher (<1),56,93997.61,33300.0
+Mobile,Junior (1-2),67,106462.66,40000.0
+Mobile,Lead/Staff (11-20),241,137588.04,100000.0
+Mobile,Mid-level (3-5),182,106698.32,60000.0
+Mobile,Principal+ (21+),83,167811.22,140000.0
+Mobile,Senior (6-10),272,115814.18,80000.0
+Other,Fresher (<1),35,87564.66,50000.0
+Other,Junior (1-2),24,131644.58,86000.0
+Other,Lead/Staff (11-20),168,153618.67,122250.0
+Other,Mid-level (3-5),81,97645.75,67000.0
+Other,Principal+ (21+),120,153390.1,135000.0
+Other,Senior (6-10),127,125338.59,100000.0

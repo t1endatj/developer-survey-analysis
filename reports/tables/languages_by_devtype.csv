@@ -1,0 +1,51 @@
+DevType,Language,Count,Percentage,Rank
+"Developer, full-stack",JavaScript,8285,14.31,1
+"Developer, full-stack",HTML/CSS,7164,12.37,2
+"Developer, full-stack",SQL,6549,11.31,3
+"Developer, full-stack",TypeScript,6073,10.49,4
+"Developer, full-stack",Python,3921,6.77,5
+"Developer, back-end",SQL,3001,12.13,1
+"Developer, back-end",JavaScript,2588,10.46,2
+"Developer, back-end",Python,2434,9.84,3
+"Developer, back-end",Bash/Shell (all shells),1957,7.91,4
+"Developer, back-end",Java,1931,7.81,5
+"Developer, front-end",JavaScript,1412,21.65,1
+"Developer, front-end",HTML/CSS,1241,19.03,2
+"Developer, front-end",TypeScript,1234,18.92,3
+"Developer, front-end",SQL,389,5.96,4
+"Developer, front-end",Python,319,4.89,5
+"Developer, desktop or enterprise applications",C#,651,10.33,1
+"Developer, desktop or enterprise applications",SQL,640,10.16,2
+"Developer, desktop or enterprise applications",Python,568,9.01,3
+"Developer, desktop or enterprise applications",JavaScript,530,8.41,4
+"Developer, desktop or enterprise applications",C++,529,8.39,5
+"Developer, embedded applications or devices",Python,691,14.19,1
+"Developer, embedded applications or devices",C,658,13.51,2
+"Developer, embedded applications or devices",C++,650,13.34,3
+"Developer, embedded applications or devices",Bash/Shell (all shells),471,9.67,4
+"Developer, embedded applications or devices",JavaScript,261,5.36,5
+"Developer, mobile",Kotlin,468,11.68,1
+"Developer, mobile",Swift,437,10.91,2
+"Developer, mobile",Java,364,9.09,3
+"Developer, mobile",JavaScript,317,7.91,4
+"Developer, mobile",TypeScript,245,6.12,5
+Engineering manager,JavaScript,413,12.39,1
+Engineering manager,SQL,333,9.99,2
+Engineering manager,HTML/CSS,310,9.3,3
+Engineering manager,TypeScript,304,9.12,4
+Engineering manager,Python,295,8.85,5
+Other (please specify):,Python,335,10.44,1
+Other (please specify):,JavaScript,312,9.72,2
+Other (please specify):,SQL,304,9.47,3
+Other (please specify):,Bash/Shell (all shells),274,8.54,4
+Other (please specify):,HTML/CSS,250,7.79,5
+DevOps specialist,Python,353,12.59,1
+DevOps specialist,Bash/Shell (all shells),334,11.92,2
+DevOps specialist,JavaScript,233,8.31,3
+DevOps specialist,SQL,231,8.24,4
+DevOps specialist,HTML/CSS,174,6.21,5
+Data engineer,Python,519,19.17,1
+Data engineer,SQL,488,18.02,2
+Data engineer,Bash/Shell (all shells),282,10.41,3
+Data engineer,JavaScript,200,7.39,4
+Data engineer,HTML/CSS,159,5.87,5
