@@ -218,7 +218,68 @@ def analyze_compensation_by_experience(df: pd.DataFrame) -> pd.DataFrame:
 
 
 
-# HÀM 7: THỐNG KÊ AI USAGE THEO KINH NGHIỆM
+# HÀM 7: THỐNG KÊ LƯƠNG THEO KINH NGHIỆM VÀ DEVTYPE
+
+def analyze_compensation_by_experience_and_devtype(df: pd.DataFrame, top_n_devtypes: int = 10) -> pd.DataFrame:
+    """
+    Thống kê lương (CompTotal) theo từng nhóm kinh nghiệm VÀ loại Developer.
+    
+    Tham số:
+        df: DataFrame chứa cột 'CompTotal', 'ExperienceLevel' và 'DevType'
+        top_n_devtypes: Số lượng DevType phổ biến nhất để phân tích (mặc định 10)
+    
+    Trả về:
+        DataFrame với các thống kê lương (count, median) theo nhóm kinh nghiệm và DevType
+    """
+    # Kiểm tra cột cần thiết
+    required_cols = ['CompTotal', 'ExperienceLevel', 'DevType']
+    for col in required_cols:
+        if col not in df.columns:
+            print(f"Warning: Cột '{col}' không tồn tại trong dữ liệu")
+            return pd.DataFrame()
+    
+    # Explode DevType (vì 1 người có thể làm nhiều role)
+    df_exploded = df.copy()
+    df_exploded['DevType'] = df_exploded['DevType'].str.split(';')
+    df_exploded = df_exploded.explode('DevType')
+    df_exploded['DevType'] = df_exploded['DevType'].str.strip()
+    
+    # Loại bỏ giá trị rỗng
+    df_exploded = df_exploded[df_exploded['DevType'].notna() & (df_exploded['DevType'] != '')]
+    
+    # Lọc top N DevType phổ biến
+    top_devtypes = df_exploded['DevType'].value_counts().head(top_n_devtypes).index
+    df_filtered = df_exploded[df_exploded['DevType'].isin(top_devtypes)].copy()
+    
+    # Rename DevType cho ngắn gọn
+    rename_map = {
+        "Developer, back-end": "Backend",
+        "Developer, front-end": "Frontend",
+        "Developer, mobile": "Mobile",
+        "Developer, full-stack": "Full-stack",
+        "Data engineer": "Data Engineer",
+        "Engineering manager": "Engineering Manager",
+        "DevOps specialist": "DevOps",
+        "Developer, desktop or enterprise applications": "Desktop/Enterprise",
+        "Developer, embedded applications or devices": "Embedded",
+        "Other (please specify):": "Other"
+    }
+    df_filtered['DevType'] = df_filtered['DevType'].replace(rename_map)
+    
+    # Group theo cả ExperienceLevel và DevType
+    stats = df_filtered.groupby(['DevType', 'ExperienceLevel'])['CompTotal'].agg([
+        ('Count', 'count'),
+        ('Mean', 'mean'),
+        ('Median', 'median')
+    ]).round(2)
+    
+    stats = stats.reset_index()
+    
+    return stats
+
+
+
+# HÀM 8: THỐNG KÊ AI USAGE THEO KINH NGHIỆM
 
 def analyze_ai_by_experience(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -447,6 +508,11 @@ def run_analysis(input_path: str) -> dict:
     # 6. Compensation by Experience
     results['comp_by_exp'] = analyze_compensation_by_experience(df)
     results['comp_by_exp'].to_csv(f'{OUTPUT_DIR}/compensation_by_experience.csv', index=False)
+    
+    # 6b. Compensation by Experience AND DevType (chi tiết theo ngành)
+    results['comp_by_exp_devtype'] = analyze_compensation_by_experience_and_devtype(df, top_n_devtypes=10)
+    if not results['comp_by_exp_devtype'].empty:
+        results['comp_by_exp_devtype'].to_csv(f'{OUTPUT_DIR}/compensation_by_experience_devtype.csv', index=False)
     
     # 7. AI by Experience
     results['ai_by_exp'] = analyze_ai_by_experience(df)

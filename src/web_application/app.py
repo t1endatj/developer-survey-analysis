@@ -177,19 +177,24 @@ def main():
     
     st.divider()
     
-    # Row 3: Salary Info
-    st.subheader("💰 Thu nhập theo kinh nghiệm (USD/năm)")
+    # Row 3: Salary Info theo ngành nghề
+    st.subheader(f"💰 Thu nhập theo kinh nghiệm - {roadmap['role']} (USD/năm)")
     if roadmap["salary_info"]:
         cols = st.columns(len(roadmap["salary_info"]))
         for i, salary in enumerate(roadmap["salary_info"]):
             with cols[i]:
+                # Hiển thị số mẫu 
+                help_text = f"Median salary cho {salary['level']}"
+                if salary.get('count'):
+                    help_text += f" (n={salary['count']:,})"
+                
                 st.metric(
                     label=salary["level"],
                     value=f"${salary['median']:,}",
-                    help=f"Median salary cho {salary['level']}"
+                    help=help_text
                 )
     else:
-        st.info("Không có dữ liệu lương")
+        st.info("Không có dữ liệu lương cho ngành này")
     
     # Footer
     st.divider()

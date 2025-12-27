@@ -94,8 +94,8 @@ def generate_roadmap(devtype: str) -> dict:
     # 4. Lấy top frustrations
     roadmap["frustrations"] = _get_top_frustrations()
     
-    # 5. Lấy thông tin salary
-    roadmap["salary_info"] = _get_salary_info()
+    # 5. Lấy thông tin salary THEO DEVTYPE CỤ THỂ
+    roadmap["salary_info"] = _get_salary_info_by_devtype(devtype)
     
     return roadmap
 
@@ -234,6 +234,73 @@ def _get_salary_info() -> list:
             "level": row["ExperienceLevel"],
             "median": int(row["Median"]) if pd.notna(row["Median"]) else 0,
             "mean": int(row["Mean"]) if pd.notna(row["Mean"]) else 0
+        })
+    
+    return salary_info
+
+
+def _get_salary_info_by_devtype(devtype: str) -> list:
+    """
+    Lấy thông tin salary theo experience level CHO MỘT DEVTYPE CỤ THỂ.
+    
+    Tham số:
+        devtype: Tên DevType gốc (ví dụ: "Developer, back-end")
+    
+    Trả về:
+        List of dicts với thông tin salary theo level cho DevType đó
+    """
+    path = os.path.join(TABLES_DIR, "compensation_by_experience_devtype.csv")
+    
+    if not os.path.exists(path):
+        # Fallback về lương tổng quát nếu không có file
+        return _get_salary_info()
+    
+    df = pd.read_csv(path)
+    
+    # Mapping tên DevType gốc sang tên đã rename trong analysis
+    rename_map = {
+        "Developer, back-end": "Backend",
+        "Developer, front-end": "Frontend",
+        "Developer, mobile": "Mobile",
+        "Developer, full-stack": "Full-stack",
+        "Data engineer": "Data Engineer",
+        "Engineering manager": "Engineering Manager",
+        "DevOps specialist": "DevOps",
+        "Developer, desktop or enterprise applications": "Desktop/Enterprise",
+        "Developer, embedded applications or devices": "Embedded",
+        "Data scientist or machine learning specialist": "Data Scientist",
+    }
+    
+    devtype_short = rename_map.get(devtype, devtype)
+    
+    # Lọc theo DevType
+    df_role = df[df["DevType"] == devtype_short]
+    
+    if df_role.empty:
+        # Fallback về lương tổng quát nếu không có dữ liệu cho DevType này
+        return _get_salary_info()
+    
+    # Sắp xếp theo thứ tự experience
+    order = [
+        "Fresher (<1)",
+        "Junior (1-2)",
+        "Mid-level (3-5)",
+        "Senior (6-10)",
+        "Lead/Staff (11-20)",
+        "Principal+ (21+)"
+    ]
+    
+    df_role = df_role.copy()
+    df_role["ExperienceLevel"] = pd.Categorical(df_role["ExperienceLevel"], categories=order, ordered=True)
+    df_role = df_role.sort_values("ExperienceLevel")
+    
+    salary_info = []
+    for _, row in df_role.iterrows():
+        salary_info.append({
+            "level": row["ExperienceLevel"],
+            "median": int(row["Median"]) if pd.notna(row["Median"]) else 0,
+            "mean": int(row["Mean"]) if pd.notna(row["Mean"]) else 0,
+            "count": int(row["Count"]) if pd.notna(row["Count"]) else 0
         })
     
     return salary_info
