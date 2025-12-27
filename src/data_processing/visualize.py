@@ -41,8 +41,6 @@ def test_setup():
     Hàm test nhanh để xem đường dẫn và môi trường chạy OK chưa.
     Chạy file visualize.py là bạn sẽ thấy in ra FIG_DIR.
     """
-    print("Visualize setup OK")
-    print("Figure directory:", FIG_DIR)
 
 
 
@@ -465,7 +463,200 @@ def plot_compensation_by_experience():
 
 
 
-# 10) ENTRY POINT (CHẠY TẤT CẢ BIỂU ĐỒ)
+# 10) BIỂU ĐỒ: Top DevTypes (BARH)
+
+def plot_top_devtypes():
+    """
+    Vẽ bar ngang cho top loại Developer phổ biến nhất.
+
+    Input : data/top_devtypes.csv
+            columns: DevType, Count, Percentage
+    Output: reports/figures/top_devtypes.png
+    """
+    path = os.path.join(DATA_DIR, "top_devtypes.csv")
+    
+    if not os.path.exists(path):
+        print(f"Warning: File {path} không tồn tại")
+        return
+    
+    df = pd.read_csv(path)
+
+    # Rename cho ngắn gọn
+    rename_map = {
+        "Developer, back-end": "Backend",
+        "Developer, front-end": "Frontend",
+        "Developer, mobile": "Mobile",
+        "Developer, full-stack": "Full-stack",
+        "Data engineer": "Data Engineer",
+        "Engineering manager": "Engineering Manager",
+        "DevOps specialist": "DevOps",
+        "Developer, desktop or enterprise applications": "Desktop/Enterprise",
+        "Developer, embedded applications or devices": "Embedded",
+        "Data scientist or machine learning specialist": "Data Scientist/ML"
+    }
+    df["DevType"] = df["DevType"].replace(rename_map)
+
+    # Sắp xếp để barh hiển thị từ thấp -> cao
+    df = df.sort_values("Count", ascending=True)
+
+    fig, ax = plt.subplots(figsize=(10, 8))
+    bars = ax.barh(df["DevType"], df["Count"])
+
+    # Chừa khoảng trống bên phải
+    max_val = df["Count"].max()
+    ax.set_xlim(0, max_val * 1.15)
+
+    # Ghi số ngay đầu mỗi thanh
+    for i, (count, pct) in enumerate(zip(df["Count"], df["Percentage"])):
+        ax.text(
+            count + max_val * 0.01,
+            i,
+            f"{count:,} ({pct}%)",
+            va="center",
+            ha="left",
+            fontsize=9
+        )
+
+    ax.set_title("Top loại Developer phổ biến nhất")
+    ax.set_xlabel("Số lượng")
+    ax.set_ylabel("Loại Developer")
+
+    plt.tight_layout()
+
+    out_path = os.path.join(FIG_DIR, "top_devtypes.png")
+    plt.savefig(out_path, dpi=200)
+    plt.close()
+
+
+
+# 11) BIỂU ĐỒ: Languages by DevType (HEATMAP-style)
+
+def plot_languages_by_devtype():
+    """
+    Vẽ biểu đồ grouped bar cho top ngôn ngữ của từng DevType.
+
+    Input : data/languages_by_devtype.csv
+            columns: DevType, Language, Count, Percentage, Rank
+    Output: reports/figures/languages_by_devtype.png
+    """
+    path = os.path.join(DATA_DIR, "languages_by_devtype.csv")
+    
+    if not os.path.exists(path):
+        print(f"Warning: File {path} không tồn tại")
+        return
+    
+    df = pd.read_csv(path)
+
+    # Rename DevType cho ngắn gọn
+    rename_map = {
+        "Developer, back-end": "Backend",
+        "Developer, front-end": "Frontend",
+        "Developer, mobile": "Mobile",
+        "Developer, full-stack": "Full-stack",
+        "Data engineer": "Data Engineer",
+        "Engineering manager": "Eng. Manager",
+        "DevOps specialist": "DevOps",
+        "Developer, desktop or enterprise applications": "Desktop",
+        "Developer, embedded applications or devices": "Embedded",
+        "Data scientist or machine learning specialist": "Data Scientist"
+    }
+    df["DevType"] = df["DevType"].replace(rename_map)
+
+    # Chỉ lấy top 1 language cho mỗi DevType để vẽ đơn giản
+    df_top1 = df[df["Rank"] == 1].copy()
+    df_top1 = df_top1.sort_values("Percentage", ascending=True)
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    bars = ax.barh(df_top1["DevType"], df_top1["Percentage"])
+
+    # Ghi tên ngôn ngữ và % lên thanh
+    for bar, lang, pct in zip(bars, df_top1["Language"], df_top1["Percentage"]):
+        ax.text(
+            bar.get_width() + 1,
+            bar.get_y() + bar.get_height() / 2,
+            f"{lang} ({pct}%)",
+            va="center",
+            fontsize=9
+        )
+
+    ax.set_xlim(0, df_top1["Percentage"].max() + 20)
+    ax.set_title("Ngôn ngữ phổ biến nhất theo loại Developer")
+    ax.set_xlabel("Tỉ lệ sử dụng (%)")
+    ax.set_ylabel("Loại Developer")
+
+    plt.tight_layout()
+
+    out_path = os.path.join(FIG_DIR, "languages_by_devtype.png")
+    plt.savefig(out_path, dpi=200)
+    plt.close()
+
+
+
+# 12) BIỂU ĐỒ: Compensation by Experience & DevType (GROUPED BAR)
+
+def plot_compensation_by_devtype():
+    """
+    Vẽ grouped bar so sánh lương giữa các DevType theo kinh nghiệm.
+
+    Input : data/compensation_by_experience_devtype.csv
+            columns: DevType, ExperienceLevel, Count, Mean, Median
+    Output: reports/figures/compensation_by_devtype.png
+    """
+    path = os.path.join(DATA_DIR, "compensation_by_experience_devtype.csv")
+    
+    if not os.path.exists(path):
+        print(f"Warning: File {path} không tồn tại")
+        return
+    
+    df = pd.read_csv(path)
+
+    # Pivot để tạo bảng DevType x ExperienceLevel
+    pivot = df.pivot_table(
+        index="DevType",
+        columns="ExperienceLevel",
+        values="Median",
+        aggfunc="first"
+    )
+
+    # Sắp xếp cột theo thứ tự kinh nghiệm
+    order = [
+        "Fresher (<1)",
+        "Junior (1-2)",
+        "Mid-level (3-5)",
+        "Senior (6-10)",
+        "Lead/Staff (11-20)",
+        "Principal+ (21+)"
+    ]
+    cols = [c for c in order if c in pivot.columns]
+    pivot = pivot[cols]
+
+    # Sắp xếp hàng theo lương median của Senior (hoặc Mid-level)
+    sort_col = "Senior (6-10)" if "Senior (6-10)" in pivot.columns else cols[-1]
+    pivot = pivot.sort_values(by=sort_col, ascending=True)
+
+    # Vẽ grouped bar horizontal
+    fig, ax = plt.subplots(figsize=(12, 8))
+    pivot.plot(kind="barh", ax=ax, width=0.8)
+
+    ax.set_title("Lương Median (USD) theo loại Developer và kinh nghiệm")
+    ax.set_xlabel("Lương Median (USD)")
+    ax.set_ylabel("Loại Developer")
+
+    # Format x-axis với dấu phẩy ngăn cách hàng nghìn
+    ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f"${x:,.0f}"))
+
+    ax.legend(title="Kinh nghiệm", bbox_to_anchor=(1.02, 1), loc="upper left")
+    ax.xaxis.grid(True, linestyle="--", alpha=0.4)
+
+    plt.tight_layout()
+
+    out_path = os.path.join(FIG_DIR, "compensation_by_devtype.png")
+    plt.savefig(out_path, dpi=200)
+    plt.close()
+
+
+
+# 13) ENTRY POINT (CHẠY TẤT CẢ BIỂU ĐỒ)
 
 if __name__ == "__main__":
     # Chạy test nhanh
@@ -480,3 +671,7 @@ if __name__ == "__main__":
     plot_remote_by_devtype()
     plot_top_frustrations()
     plot_compensation_by_experience()
+    plot_top_devtypes()
+    plot_languages_by_devtype()
+    plot_compensation_by_devtype()
+    
