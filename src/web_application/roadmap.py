@@ -1,8 +1,4 @@
-"""
-roadmap.py - Logic tạo Roadmap đề xuất cho Developer
-
-Module này đọc các file CSV đã phân tích và tổng hợp thành
-"""
+# Xử lí logic tạo roadmap cho người đùng
 
 import os
 import pandas as pd
@@ -64,12 +60,12 @@ def generate_roadmap(devtype: str) -> dict:
     Trả về:
         Dictionary chứa các thông tin Roadmap:
         {
-            "role": str,           # Tên hiển thị
-            "languages": list,     # Top languages [(name, percentage), ...]
-            "remote_stats": dict,  # {"Remote": %, "Hybrid": %, "In-person": %}
-            "ai_usage": str,       # Thông tin về AI usage
-            "frustrations": list,  # Top frustrations
-            "salary_info": dict    # Thông tin lương
+            "role": str,         
+            "languages": list,   
+            "remote_stats": dict, 
+            "ai_usage": str,      
+            "frustrations": list, 
+            "salary_info": dict    
         }
     """
     roadmap = {
@@ -82,19 +78,19 @@ def generate_roadmap(devtype: str) -> dict:
         "salary_info": {}
     }
     
-    # 1. Lấy top languages cho DevType này
+    # Lấy top languages cho DevType này
     roadmap["languages"] = _get_languages_for_role(devtype)
     
-    # 2. Lấy remote work stats cho DevType này
+    # Lấy remote work stats cho DevType này
     roadmap["remote_stats"] = _get_remote_stats_for_role(devtype)
     
-    # 3. Lấy thông tin AI usage 
+    # Lấy thông tin AI usage 
     roadmap["ai_usage"] = _get_ai_usage_info()
     
-    # 4. Lấy top frustrations
+    # Lấy top frustrations
     roadmap["frustrations"] = _get_top_frustrations()
     
-    # 5. Lấy thông tin salary THEO DEVTYPE CỤ THỂ
+    # Lấy thông tin salary THEO DEVTYPE 
     roadmap["salary_info"] = _get_salary_info_by_devtype(devtype)
     
     return roadmap
