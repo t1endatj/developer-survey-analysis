@@ -1,5 +1,5 @@
 
-# analysis.py - Phân tích và thống kê dữ liệu
+# analysis.py - Phân tích và thống kê du liệu
 
 # Module này thực hiện các phân tích thống kê:
 # 1. Tỉ lệ RemoteWork tổng thể
