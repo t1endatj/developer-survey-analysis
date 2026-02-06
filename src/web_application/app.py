@@ -1,8 +1,5 @@
 """
-app.py - Streamlit Web Application
-
-Ứng dụung web đơn giản đề xuất Roadmap cho Developer
-dựa trên dữ liệu phân tích từ Stack Overflow Survey 2024.
+app.py - Developer Roadmap Web Application
 """
 
 import streamlit as st
@@ -26,7 +23,6 @@ st.set_page_config(
     page_icon="🚀",
     layout="wide"
 )
-
 
 def main():
     # Header
