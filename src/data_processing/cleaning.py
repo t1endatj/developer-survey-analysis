@@ -15,7 +15,7 @@ df = df[selected_columns].copy()
 
 df = df[df['MainBranch'] == 'I am a developer by profession']
 
-# cột kinh nghiệm có 'Less than 1 year', chuyển nó thành 0 và ép kiểu số
+# cột kinh nghiệm có      'Less than 1 year', chuyển nó thành 0 và ép kiểu số
 df['YearsCodePro'] = df['YearsCodePro'].replace('Less than 1 year', 0)
 df['YearsCodePro'] = pd.to_numeric(df['YearsCodePro'], errors='coerce')
 
