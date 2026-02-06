@@ -25,6 +25,10 @@ st.set_page_config(
 )
 
 def main():
+    """
+    Hàm chính hiển thị giao diện web application.
+    Cho phép người dùng chọn role và xem roadmap tương ứng.
+    """
     # Header
     st.markdown('<h1 class="main-header">🚀 Developer Roadmap Generator</h1>', unsafe_allow_html=True)
     st.markdown("**Đề xuất lộ trình keyword cho Developer dựa trên khảo sát Stack Overflow Survey 2024**")
