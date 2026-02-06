@@ -28,6 +28,17 @@ st.set_page_config(
     layout=LAYOUT
 )
 
+def display_languages_section(languages):
+    """Hiển thị section ngôn ngữ lập trình."""
+    st.subheader("📚 Top Ngôn ngữ nên học")
+    if languages:
+        for lang in languages:
+            st.markdown(f"**{lang['rank']}. {lang['name']}**")
+            st.progress(lang["percentage"] / 100)
+            st.caption(f"{lang['percentage']}% developer sử dụng")
+    else:
+        st.info("Không có dữ liệu ngôn ngữ")
+
 def main():
     """
     Hàm chính hiển thị giao diện web application.
@@ -37,7 +48,7 @@ def main():
     st.markdown('<h1 class="main-header">🚀 Developer Roadmap Generator</h1>', unsafe_allow_html=True)
     st.markdown("**Đề xuất lộ trình keyword cho Developer dựa trên khảo sát Stack Overflow Survey 2024**")
     
-    st.divider()
+st.divider()
     
     # Lấy danh sách roles
     roles = get_available_roles()
@@ -60,27 +71,19 @@ def main():
     
     selected_role = role_options[selected_display]
     
-    st.divider()
+st.divider()
     
     # Generate roadmap
     roadmap = generate_roadmap(selected_role)
     
     # Hiển thị roadmap
-    st.header(f"📋 Roadmap cho {roadmap['role']}")
+    st.header(f"📋 Roadmap cho {roadmap[\'role\']}")
     
     # Row 1: Languages và Remote Stats
     col1, col2 = st.columns(2)
     
     with col1:
-        st.subheader("📚 Top Ngôn ngữ nên học")
-        if roadmap["languages"]:
-            for lang in roadmap["languages"]:
-                # Progress bar cho mỗi ngôn ngữ
-                st.markdown(f"**{lang['rank']}. {lang['name']}**")
-                st.progress(lang["percentage"] / 100)
-                st.caption(f"{lang['percentage']}% developer sử dụng")
-        else:
-            st.info("Không có dữ liệu ngôn ngữ")
+        display_languages_section(roadmap["languages"])
     
     with col2:
         st.subheader("🏠 Hình thức làm việc")
@@ -97,7 +100,7 @@ def main():
         else:
             st.info("Không có dữ liệu remote work cho role này")
     
-    st.divider()
+st.divider()
     
     # Row 2: AI Usage và Frustrations
     col1, col2 = st.columns(2)
@@ -125,7 +128,7 @@ def main():
         else:
             st.info("Không có dữ liệu frustrations")
     
-    st.divider()
+st.divider()
     
     # Row 3: Salary Info theo ngành nghề
     st.subheader(f"💰 Thu nhập theo kinh nghiệm - {roadmap['role']} (USD/năm)")
