@@ -16,12 +16,16 @@ from roadmap import (
     generate_roadmap
 )
 
+# Constants
+PAGE_TITLE = "Developer Roadmap Generator"
+PAGE_ICON = "🚀"
+LAYOUT = "wide"
 
 # Cấu hình trang
 st.set_page_config(
-    page_title="Developer Roadmap Generator",
-    page_icon="🚀",
-    layout="wide"
+    page_title=PAGE_TITLE,
+    page_icon=PAGE_ICON,
+    layout=LAYOUT
 )
 
 def main():
