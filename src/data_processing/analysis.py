@@ -5,7 +5,6 @@
 # 1. Tỉ lệ RemoteWork tổng thể
 # 2. Crosstab RemoteWork theo kinh nghiệm, DevType
 # 3. Top ngôn ngữ lập trình phổ biến
-# 4. Thống kê AI usage
 # 5. Thống kê lương theo 
 
 import pandas as pd
