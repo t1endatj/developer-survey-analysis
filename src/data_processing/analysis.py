@@ -16,8 +16,6 @@ OUTPUT_DIR = './reports/tables'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-
-
 def analyze_remote_work_overall(df: pd.DataFrame) -> pd.DataFrame:
     """
     Tính tỉ lệ phần trăm các hình thức làm việc (Remote/Hybrid/In-person).
