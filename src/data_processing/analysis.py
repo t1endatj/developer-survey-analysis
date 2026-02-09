@@ -46,7 +46,6 @@ def analyze_remote_work_overall(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # HÀM 2: CROSSTAB REMOTEWORK THEO KINH NGHIỆM
-
 def analyze_remote_by_experience(df: pd.DataFrame) -> pd.DataFrame:
     """
     Phân tích tỉ lệ RemoteWork theo từng nhóm kinh nghiệm.
