@@ -19,7 +19,6 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
 
-# HÀM 1: THỐNG KÊ TỈ LỆ REMOTEWORK TỔNG THỂ
 
 def analyze_remote_work_overall(df: pd.DataFrame) -> pd.DataFrame:
     """
